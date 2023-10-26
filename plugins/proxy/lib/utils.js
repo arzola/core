@@ -1,5 +1,6 @@
 'use strict';
 
+const { config } = require('bluebird');
 // Modules
 const _ = require('lodash');
 const hasher = require('object-hash');
@@ -113,6 +114,12 @@ exports.parseRoutes = (service, urls = [], sslReady, labels = {}) => {
 
   // Add things into the labels
   _.forEach(parsedUrls, rule => {
+    if (service === 'defaults') {
+      console.log('adding labels for defaults');
+      labels[`traefik.tcp.routers.${rule.id}.rule`] = 'HostSNI(`*`)';
+      labels[`traefik.tcp.routers.${rule.id}.entrypoints`] = 'mysql';
+      labels[`traefik.tcp.services.${rule.id}.loadbalancer.server.port`] = '3306';
+    }
     // Add some default middleware
     rule.middlewares.push({name: 'lando', key: 'headers.customrequestheaders.X-Lando', value: 'on'});
     // Add in any path stripping middleware we need it
@@ -152,6 +159,7 @@ exports.parseRoutes = (service, urls = [], sslReady, labels = {}) => {
       labels[`traefik.http.routers.${rule.id}-secured.middlewares`] = _.map(rule.middlewares, 'name').join(',');
       labels[`traefik.http.services.${rule.id}-secured-service.loadbalancer.server.port`] = rule.port;
     }
+
   });
   return labels;
 };

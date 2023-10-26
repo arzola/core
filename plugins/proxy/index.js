@@ -21,6 +21,7 @@ const defaultConfig = {
     '--providers.docker.exposedbydefault=false',
     '--providers.file.directory=/proxy_config',
     '--providers.file.watch=true',
+    '--entrypoints.mysql.address=:3306',
   ],
   proxyCustom: {},
   proxyDefaultCert: '/certs/cert.crt',

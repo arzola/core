@@ -71,6 +71,7 @@ module.exports = {
     constructor(http, https, options) {
       const proxy = getProxy(options);
       const ports = getPorts(http, https, options);
+      ports.services.proxy.ports.push('127.0.0.1:3306:3306');
       const augment = {
         env: _.cloneDeep(options.appEnv),
         labels: _.cloneDeep(options.appLabels),
