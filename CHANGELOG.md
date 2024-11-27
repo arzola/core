@@ -1,5 +1,7 @@
 ## {{ UNRELEASED_VERSION }} - [{{ UNRELEASED_DATE }}]({{ UNRELEASED_LINK }})
 
+* Added a WSL2 workflow for the `setup` tests
+
 ## v3.23.13 - [November 23, 2024](https://github.com/lando/core/releases/tag/v3.23.13)
 
 * Fixed bug causing metrics opt-out to not work in some situations [#277](https://github.com/lando/core/issues/277)
